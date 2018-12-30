@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Clock</title>
+</head>
+<style>
+    @font-face {
+        font-family: lcd;
+        src: url(./fonts/lcd.ttf);
+    }   
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #000;
+    }
+    #date {
+        color: #fff;
+        position: relative;
+        top: 110px;
+        font-family: 'Courier New', Courier, monospace;
+        text-align: center;
+        font-size: 20px;
+    }
+    .clock {
+        font-family: lcd;
+        color: red;
+        font-size: 70px;
+        font-weight: bold;
+        position: relative;
+        top: 100px;
+        left: 42%;
+        width: auto;
+        height: auto;
+    }
+</style>
+<body>
+    <div>
+            <div class="clock" id="clock"></div>
+            <div id="date"></div>
+    </div>
+</body>
+<script>
+    var clock = document.getElementById('clock');
+    var date = document.getElementById('date');
+    clock.addEventListener(onload, start());
+    function start() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+
+        m = correctTime(m);
+        s = correctTime(s);
+
+        clock.innerHTML = h + ":" + m + ":" + s;
+        var month = today.getMonth();
+        var d = today.getDate();
+        var day = today.getDay();
+        var year = today.getFullYear();
+        if (day == 0) {
+            day = "Sunday";
+        }
+        else if (day == 1)  {
+            day = "Monday";
+        }
+        else if (day == 2)  {
+            day = "Tuesday";
+        }
+        else if (day == 3)  {
+            day = "Wednesday";
+        }
+        else if (day == 4)  {
+            day = "Thursday";
+        }
+        else if (day == 5)  {
+            day = "Friday";
+        }
+        else if (day == 6)  {
+            day = "Saturday";
+        }
+        date.innerHTML = day + " " + d + " " + month + "," + year;
+
+        var t = setTimeout(start, 1000);
+    }
+
+    function correctTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+</script>
+</html>
